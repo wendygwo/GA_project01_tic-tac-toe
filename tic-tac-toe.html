@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Let's Play Tic-Tac-Toe!</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+	<div id="container">
+		<div id='ticTacToeBoard'>
+			<!-- First row -->
+			<div class = 'square left top'></div>
+			<div class = 'square top'></div>
+			<div class = 'square top right'></div>
+
+			<!-- Second row -->
+			<div class = 'square left'></div>
+			<div class = 'square'></div>
+			<div class = 'square right'></div>
+
+			<!-- Third row -->
+			<div class = 'square left bottom'></div>
+			<div class = 'square bottom'></div>
+			<div class = 'square bottom right'></div>
+
+		</div> <!-- End div id='ticTacToeBoard' -->
+	</div> <!-- End div id="container" -->
+
+
+	<script>
+		//Finds all elements with class name of 'square'
+		var mySquares = document.getElementsByClassName('square');
+		console.log(mySquares);
+
+		//Function declaration for event handler. Is called below for when something is moused over
+		var eventHandlerMouseOver = function(data){
+			//Show the received mouse event object
+	        // console.log(data);
+	        //Turn the thing that was moused over blue
+	        this.style.backgroundColor = 'blue';
+
+	        //this cancels the typical behavior of the clicked element
+	        return false;
+		} ;//End event handler function definition
+
+
+		//Function declaration for event handler. Is called below for when something is moused out of
+		var eventHandlerMouseOut = function(data){
+			//Show the received mouse event object
+	        // console.log(data);
+	        //Turn the thing that was moused out pink
+	        this.style.backgroundColor = 'lightpink';
+
+	        //this cancels the typical behavior of the clicked element
+	        return false;
+		} ;//End event handler function definition
+
+
+		//Function declaration for event handler. Is called below for when something is clicked
+		var eventHandlerMouseDown = function(data){
+			//Show the received mouse event object
+	        // console.log(data);
+	        //Turn the thing that was moused out pink
+	        this.style.backgroundColor = 'lightpink';
+	        this.innerHTML='<p class="x">X<p>';
+
+	        //this cancels the typical behavior of the clicked element
+	        return false;
+		} ;//End event handler function definition
+
+		//Specify which HTML elements should get wired up to event handler
+		mySquares[0].onmouseover = eventHandlerMouseOver;
+		mySquares[1].onmouseover = eventHandlerMouseOver;
+		mySquares[2].onmouseover = eventHandlerMouseOver;
+		mySquares[3].onmouseover = eventHandlerMouseOver;
+		mySquares[4].onmouseover = eventHandlerMouseOver;
+		mySquares[5].onmouseover = eventHandlerMouseOver;
+		mySquares[6].onmouseover = eventHandlerMouseOver;
+		mySquares[7].onmouseover = eventHandlerMouseOver;
+		mySquares[8].onmouseover = eventHandlerMouseOver;
+
+		mySquares[0].onmouseout = eventHandlerMouseOut;
+		mySquares[1].onmouseout = eventHandlerMouseOut;
+		mySquares[2].onmouseout = eventHandlerMouseOut;
+		mySquares[3].onmouseout = eventHandlerMouseOut;
+		mySquares[4].onmouseout = eventHandlerMouseOut;
+		mySquares[5].onmouseout = eventHandlerMouseOut;
+		mySquares[6].onmouseout = eventHandlerMouseOut;
+		mySquares[7].onmouseout = eventHandlerMouseOut;
+		mySquares[8].onmouseout = eventHandlerMouseOut;
+
+		mySquares[0].onmousedown = eventHandlerMouseDown;
+		mySquares[1].onmousedown = eventHandlerMouseDown;
+		mySquares[2].onmousedown = eventHandlerMouseDown;
+		mySquares[3].onmousedown = eventHandlerMouseDown;
+		mySquares[4].onmousedown = eventHandlerMouseDown;
+		mySquares[5].onmousedown = eventHandlerMouseDown;
+		mySquares[6].onmousedown = eventHandlerMouseDown;
+		mySquares[7].onmousedown = eventHandlerMouseDown;
+		mySquares[8].onmousedown = eventHandlerMouseDown;
+
+	</script>
+
+</body>
+</html>

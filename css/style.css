@@ -1,0 +1,39 @@
+body {
+	background-color: gray;
+}
+
+#container{
+	width:80%;
+}
+
+#ticTacToeBoard{
+	height: 320px;
+	width: 320px;
+	background-color: black;
+	position:relative;
+}
+.square{
+	height: 100px;
+	width: 100px;
+	background-color: lightpink;
+	float: left;
+	margin: 5px;
+}
+.left{
+	margin-left:0px;
+}
+.right{
+	margin-right:0px;
+}
+.top{
+	margin-top: 0px;
+}
+.bottom{
+	margin-bottom: 0px;
+}
+.x{
+	color:red;
+	margin-top:20px;
+	font-size: 300%;
+	text-align: center;
+}
