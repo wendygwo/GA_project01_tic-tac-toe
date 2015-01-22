@@ -1,24 +1,62 @@
 body {
-	background-color: gray;
+	background-color: white;
 }
+
 
 #container{
 	width:80%;
+	margin: 0 auto;
 }
 
+header{
+	text-align: center; 
+}
+
+/********************************************/
+/*  Styling for the text showing whose turn */
+/*  it is                                   */
+/********************************************/
+#playerTurn{
+	margin: 0 auto;
+}
+.currentTurn{
+	font-weight: bold;
+	color: orange;
+}
+.notCurrentTurn{
+	color: lightgray;
+}
+/********************************************/
+/*  Styling for game board and individual   */
+/*  squares                                 */
+/********************************************/
 #ticTacToeBoard{
 	height: 320px;
 	width: 320px;
 	background-color: black;
 	position:relative;
+	margin: 0 auto;
+}
+#playerTurn{
+	width: 320px;
+	margin: 0 auto;
 }
 .square{
 	height: 100px;
 	width: 100px;
-	background-color: lightpink;
+	
 	float: left;
 	margin: 5px;
 }
+.pink{
+	background-color: lightpink;
+}
+.blue{
+	background-color: blue;
+}
+/********************************************/
+/*Styling for margins of tic tac toe squares*/
+/********************************************/
 .left{
 	margin-left:0px;
 }
@@ -31,9 +69,28 @@ body {
 .bottom{
 	margin-bottom: 0px;
 }
+
+/********************************************/
+/*Styling for x or o class. Class depends on*/
+/*which player clicked the tic tac to square*/
+/********************************************/
+div.gameBoardSquare{
+	padding-top: 20px;
+}
+
 .x{
 	color:red;
-	margin-top:20px;
 	font-size: 300%;
 	text-align: center;
+}
+
+.o{
+	color:blue;
+	font-size: 300%;
+	text-align: center;
+}
+
+/*Styling for when a board piece is taken*/
+div.taken{
+	background-color: gray;
 }

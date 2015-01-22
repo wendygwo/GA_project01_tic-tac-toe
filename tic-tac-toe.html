@@ -5,39 +5,62 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-
+	<!-- Start div id="container" -->
 	<div id="container">
+		<header> 
+			<h1>Welcome to Tic-Tac-Toe!</h1>
+		</header>
+		
 		<div id='ticTacToeBoard'>
 			<!-- First row -->
-			<div class = 'square left top'></div>
-			<div class = 'square top'></div>
-			<div class = 'square top right'></div>
+			<div id = '1' class = 'square left top pink'></div>
+			<div id = '2' class = 'square top pink'></div>
+			<div id = '3' class = 'square top right pink'></div>
 
 			<!-- Second row -->
-			<div class = 'square left'></div>
-			<div class = 'square'></div>
-			<div class = 'square right'></div>
+			<div id = '4' class = 'square left pink'></div>
+			<div id = '5' class = 'square pink'></div>
+			<div id = '6' class = 'square right pink'></div>
 
 			<!-- Third row -->
-			<div class = 'square left bottom'></div>
-			<div class = 'square bottom'></div>
-			<div class = 'square bottom right'></div>
+			<div id = '7' class = 'square left bottom pink'></div>
+			<div id = '8' class = 'square bottom pink'></div>
+			<div id = '9' class = 'square bottom right pink'></div>
 
 		</div> <!-- End div id='ticTacToeBoard' -->
-	</div> <!-- End div id="container" -->
 
+		<div id='playerTurn'>
+			<h4>Waiting for next move from:</h4>
+			<p class='currentTurn' id='player1'>Player 1</p>
+			<p class='notCurrentTurn' id='player2'>Player 2</p>
+		</div>
+	</div> 
+	<!-- End div id="container" -->
 
 	<script>
-		//Finds all elements with class name of 'square'
-		var mySquares = document.getElementsByClassName('square');
-		console.log(mySquares);
+		//************************************************
+		//***********START FUNCTION DEFINITIONS***********
+		//************************************************
 
-		//Function declaration for event handler. Is called below for when something is moused over
+		//Function declaration for event handler on mouse over. Is called below for when something is moused over
 		var eventHandlerMouseOver = function(data){
-			//Show the received mouse event object
-	        // console.log(data);
-	        //Turn the thing that was moused over blue
-	        this.style.backgroundColor = 'blue';
+			//flags that check if board piece taken
+			var takenFlag = this.classList.contains('taken');//checks if there's already an x or o in this spot
+	        var blueFlag = this.classList.contains('blue');//check if the blue class is applied
+	        var pinkFlag = this.classList.contains('pink');//check if the blue class is applied
+
+			//If not already taken, set background back to pink
+	        if (!takenFlag){
+	        	if(pinkFlag){
+	        		this.classList.remove('pink');//removes pink class if it is not currently in the div/box
+	        	}
+
+	        	if (!blueFlag){
+	        		this.classList.add('blue');//adds blue class if it currently exists
+	        	}
+	        	
+
+	        }
 
 	        //this cancels the typical behavior of the clicked element
 	        return false;
@@ -46,10 +69,29 @@
 
 		//Function declaration for event handler. Is called below for when something is moused out of
 		var eventHandlerMouseOut = function(data){
-			//Show the received mouse event object
-	        // console.log(data);
-	        //Turn the thing that was moused out pink
-	        this.style.backgroundColor = 'lightpink';
+			//*****Debugging console logs*****
+			// console.log('Went into eventHandlerMouseOut.');
+			// console.log('Class name of this div/square is:');
+			// console.log(this.className);
+
+	        // console.log('Square already taken or not? ');
+	        // console.log(this.classList.contains('taken'));
+
+	        var takenFlag = this.classList.contains('taken');//checks if there's already an x or o in this spot
+	        var blueFlag = this.classList.contains('blue');//check if the blue class is applied
+	        var pinkFlag = this.classList.contains('pink');//check if the blue class is applied
+
+	        //If not already taken, set background back to pink
+	        if (!takenFlag){
+	        	if (blueFlag){
+	        		this.classList.remove('blue');//removes blue class if it currently exists
+	        	}
+	        	if(!pinkFlag){
+	        		this.classList.add('pink');//adds pink class if it is not currently in the div/box
+	        	}
+
+	        }
+
 
 	        //this cancels the typical behavior of the clicked element
 	        return false;
@@ -57,47 +99,87 @@
 
 
 		//Function declaration for event handler. Is called below for when something is clicked
-		var eventHandlerMouseDown = function(data){
-			//Show the received mouse event object
-	        // console.log(data);
-	        //Turn the thing that was moused out pink
-	        this.style.backgroundColor = 'lightpink';
-	        this.innerHTML='<p class="x">X<p>';
+		var eventHandlerMouseDown = function(event){
+			//*****Debugging console log*****
+	        //console.log('Inside eventHandlerMouseDown. Turn number: '+ turnNumber);
+	        
+	        var takenFlag = this.classList.contains('taken');//checks if there's already an x or o in this spot
+	        
+	        //only goes in here if the spot's not already taken
+	        if (!takenFlag){
+	        	//First checks to see if it's player 1's turn
+		        if(turnNumber %2 == 0){
+		        	//puts an X in the gameboard
+		        	this.innerHTML='<div class="gameBoardSquare">X</div>';
+		        	//adds the classes x and taken to the div element
+		        	this.classList.add('x', 'taken');
 
-	        //this cancels the typical behavior of the clicked element
+		        	//The next 4 lines change which player is marked as having the current turn, so that the styling can change accordingly
+		        	document.getElementById('player2').classList.add('currentTurn');
+		        	document.getElementById('player2').classList.remove('notCurrentTurn');
+		        	document.getElementById('player1').classList.remove('currentTurn');
+		        	document.getElementById('player1').classList.add('notCurrentTurn');
+		        }
+		        else{  //goes into the else if it's player 2's turn
+
+		        	//puts an O in the gameboard
+		        	this.innerHTML='<div class="gameBoardSquare">O</div>';
+		        	//adds the classes o and taken to the div element
+		        	this.classList.add('o', 'taken');
+
+					//The next 4 lines change which player is marked as having the current turn, so that the styling can change accordingly
+		        	document.getElementById('player1').classList.add('currentTurn');
+		        	document.getElementById('player1').classList.remove('notCurrentTurn');
+		        	document.getElementById('player2').classList.remove('currentTurn');
+		        	document.getElementById('player2').classList.add('notCurrentTurn');
+		        }
+	        	turnNumber++;//increments which turn number it is
+        	}
+
+        	//Checks for a winner here, only if the turn is at least 5, because no winner can occur until at least move 5.
+
+        	if (turnNumber>=5){
+				console.log('Time to start checking for a winner');
+				//****************************************************
+				//****************************************************
+				//********WRITE OUT REST OF GAME LOGIC HERE***********
+				//****************************************************
+				//****************************************************
+				//****************************************************
+			}
+
+	        //This cancels the typical behavior of the clicked element
 	        return false;
-		} ;//End event handler function definition
+		} ;
+		//End event handler function definition
 
-		//Specify which HTML elements should get wired up to event handler
-		mySquares[0].onmouseover = eventHandlerMouseOver;
-		mySquares[1].onmouseover = eventHandlerMouseOver;
-		mySquares[2].onmouseover = eventHandlerMouseOver;
-		mySquares[3].onmouseover = eventHandlerMouseOver;
-		mySquares[4].onmouseover = eventHandlerMouseOver;
-		mySquares[5].onmouseover = eventHandlerMouseOver;
-		mySquares[6].onmouseover = eventHandlerMouseOver;
-		mySquares[7].onmouseover = eventHandlerMouseOver;
-		mySquares[8].onmouseover = eventHandlerMouseOver;
+		//**************************************
+		//********END FUNCTION DEFINITIONS******
+		//**************************************
 
-		mySquares[0].onmouseout = eventHandlerMouseOut;
-		mySquares[1].onmouseout = eventHandlerMouseOut;
-		mySquares[2].onmouseout = eventHandlerMouseOut;
-		mySquares[3].onmouseout = eventHandlerMouseOut;
-		mySquares[4].onmouseout = eventHandlerMouseOut;
-		mySquares[5].onmouseout = eventHandlerMouseOut;
-		mySquares[6].onmouseout = eventHandlerMouseOut;
-		mySquares[7].onmouseout = eventHandlerMouseOut;
-		mySquares[8].onmouseout = eventHandlerMouseOut;
 
-		mySquares[0].onmousedown = eventHandlerMouseDown;
-		mySquares[1].onmousedown = eventHandlerMouseDown;
-		mySquares[2].onmousedown = eventHandlerMouseDown;
-		mySquares[3].onmousedown = eventHandlerMouseDown;
-		mySquares[4].onmousedown = eventHandlerMouseDown;
-		mySquares[5].onmousedown = eventHandlerMouseDown;
-		mySquares[6].onmousedown = eventHandlerMouseDown;
-		mySquares[7].onmousedown = eventHandlerMouseDown;
-		mySquares[8].onmousedown = eventHandlerMouseDown;
+
+		//**************************************
+		//***********START GAME SETUP***********
+		//**************************************
+		//Finds all elements with class name of 'square'
+		var mySquares = document.getElementsByClassName('square');
+
+		var turnNumber = 0; //variable that holds which turn number it is
+
+		//Figure out number of squares
+		var numSquares = mySquares.length;
+
+		//Specify which HTML elements should get wired up to event handlers
+		for (var i = 0; i < numSquares;i++) {
+			mySquares[i].onmouseover = eventHandlerMouseOver; //Adds event listener for all squares for mouse over
+			mySquares[i].onmouseout = eventHandlerMouseOut; //Adds event listener for all squares for mouse out
+			mySquares[i].onmousedown = eventHandlerMouseDown; //Adds event listener for all squares for mouse down
+		}
+		//**************************************
+		//************END GAME SETUP************
+		//**************************************
+
 
 	</script>
 
