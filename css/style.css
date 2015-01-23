@@ -94,3 +94,11 @@ div.gameBoardSquare{
 div.taken{
 	background-color: gray;
 }
+
+/*Styling for div that shows announcement of winnerj*/
+#winnerIdentity{
+	background-color: magenta;
+	color: white;
+	width: 320px;
+	margin: 0 auto;
+}

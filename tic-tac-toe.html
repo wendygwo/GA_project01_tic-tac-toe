@@ -11,6 +11,10 @@
 			<h1>Welcome to Tic-Tac-Toe!</h1>
 		</header>
 		
+		<!-- Shows the winner at the end of the game		 -->
+		<div id='winnerIdentity'></div> 
+
+		<!-- Displays the tic tac to board -->
 		<div id='ticTacToeBoard'>
 			<!-- First row -->
 			<div id = '1' class = 'square left top pink'></div>
@@ -29,6 +33,7 @@
 
 		</div> <!-- End div id='ticTacToeBoard' -->
 
+		<!-- Shows which player's turn it is by making player bold and orange -->
 		<div id='playerTurn'>
 			<h4>Waiting for next move from:</h4>
 			<p class='currentTurn' id='player1'>Player 1</p>
@@ -103,6 +108,8 @@
 			//*****Debugging console log*****
 	        //console.log('Inside eventHandlerMouseDown. Turn number: '+ turnNumber);
 	        
+
+
 	        var takenFlag = this.classList.contains('taken');//checks if there's already an x or o in this spot
 	        
 	        //only goes in here if the spot's not already taken
@@ -135,7 +142,7 @@
 		        }
         	
         		//Checks for a winner here, only if the turn is at least 5, because no winner can occur until at least move 5.
-	        	var winner='No one yet.'
+	        	
 	        	if (turnNumber>=4){
 					console.log('Time to start checking for a winner');
 					//****************************************************
@@ -144,12 +151,41 @@
 					//****************************************************
 					
 					if (turnNumber%2==0){
-						winner = findWinner(true, false);
+						winner = findWinner(true, false);//findWinner(xturn, oturn)
 					} else{
-						winner = findWinner(false, true);
+						winner = findWinner(false, true);//findWinner(xturn, oturn)
 					}
-					//****************************************************
-					//****************************************************
+
+					//Goes here if there's a winner
+					if (winner){
+						//Grays out rest of boxes and disable clicking if there's a winner
+						var makeGray= document.getElementsByClassName('square');
+						var winningPlayer = '';
+
+						//Make all fields gray and not able to be clicked
+						for (var z=0; z<makeGray.length ; z++){
+							makeGray[z].classList.add('taken');
+						}
+						
+						if (turnNumber%2==0){
+							winningPlayer = 'Player 1';
+						} else {
+							winningPlayer = 'Player 2';
+						}
+
+						//Get div to show a winner 
+						document.getElementById('winnerIdentity').innerHTML = '<h1>The winner is ' + winningPlayer + '!</h1>';
+
+						//Clear out div showing whose turn it is
+						document.getElementById('playerTurn').innerHTML = '';
+					}
+					
+				}
+				//Cat's game logic
+				if (turnNumber==8 && !winner){
+					document.getElementById('winnerIdentity').innerHTML="<h1>Cat's game. Better luck next time!</h1>";
+					//Clear out div showing whose turn it is
+					document.getElementById('playerTurn').innerHTML = '';
 				}
 
 	        	turnNumber++;//increments which turn number it is
@@ -198,7 +234,6 @@
 				if (boxesSelected.indexOf(winningCombinations[q][0])!= -1){
 					if (boxesSelected.indexOf(winningCombinations[q][1])!=-1){
 						if (boxesSelected.indexOf(winningCombinations[q][2])!=-1){
-							alert('Someone won!');
 							win = true;
 						}
 					}
@@ -225,6 +260,9 @@
 
 		//Figure out number of squares
 		var numSquares = mySquares.length;
+
+		//Flag for if there's a winner
+		var winner=false;
 
 		//Specify which HTML elements should get wired up to event handlers
 		for (var i = 0; i < numSquares;i++) {
