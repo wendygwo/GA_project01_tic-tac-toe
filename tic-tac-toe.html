@@ -133,25 +133,81 @@
 		        	document.getElementById('player2').classList.remove('currentTurn');
 		        	document.getElementById('player2').classList.add('notCurrentTurn');
 		        }
+        	
+        		//Checks for a winner here, only if the turn is at least 5, because no winner can occur until at least move 5.
+	        	var winner='No one yet.'
+	        	if (turnNumber>=4){
+					console.log('Time to start checking for a winner');
+					//****************************************************
+					//****************************************************
+					//********WRITE OUT REST OF GAME LOGIC HERE***********
+					//****************************************************
+					
+					if (turnNumber%2==0){
+						winner = findWinner(true, false);
+					} else{
+						winner = findWinner(false, true);
+					}
+					//****************************************************
+					//****************************************************
+				}
+
 	        	turnNumber++;//increments which turn number it is
+
         	}
-
-        	//Checks for a winner here, only if the turn is at least 5, because no winner can occur until at least move 5.
-
-        	if (turnNumber>=5){
-				console.log('Time to start checking for a winner');
-				//****************************************************
-				//****************************************************
-				//********WRITE OUT REST OF GAME LOGIC HERE***********
-				//****************************************************
-				//****************************************************
-				//****************************************************
-			}
-
 	        //This cancels the typical behavior of the clicked element
 	        return false;
 		} ;
-		//End event handler function definition
+		//End event handler for when something is clicked
+
+		function findWinner(xTurn, oTurn){
+			var whoseTurn;
+
+			if (xTurn){
+				whoseTurn='x';
+			} else if (oTurn) {
+				whoseTurn='o';
+			}
+
+			classToLookFor = whoseTurn + " taken";
+
+			var classTakenXO = document.getElementsByClassName(classToLookFor);
+			
+			console.log(classTakenXO);
+
+
+			//var box1, box2, box3, box4, box5, box6, box7, box8, box9;
+
+			var boxesSelected = [];//array to hold the box numbers that have been selected
+			for (var i = 0; i < classTakenXO.length; i++){
+
+				boxesSelected.push(classTakenXO[i].id);	//array to hold box numbers that have been selected
+			}
+
+			var win = false;//variable for if someone won
+			
+			//array of arrays that have winning conditions
+			var winningCombinations = [['1','2','3'],['4','5','6'],['7','8','9'],['1','4','7'],['2','5','8'],['3','6','9'],['1','5','9'],['3','5','7']];
+
+
+			console.log('winningCombinations length: ');
+			console.log(winningCombinations.length);
+			for (var q = 0; q<winningCombinations.length; q++){
+				console.log('winningCombinations[0][0]');
+				console.log(winningCombinations[0][0]);
+				if (boxesSelected.indexOf(winningCombinations[q][0])!= -1){
+					if (boxesSelected.indexOf(winningCombinations[q][1])!=-1){
+						if (boxesSelected.indexOf(winningCombinations[q][2])!=-1){
+							alert('Someone won!');
+							win = true;
+						}
+					}
+				}
+			}
+			console.log(boxesSelected);
+
+			return win;
+		}
 
 		//**************************************
 		//********END FUNCTION DEFINITIONS******
