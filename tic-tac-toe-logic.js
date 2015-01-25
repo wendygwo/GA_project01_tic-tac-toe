@@ -9,19 +9,15 @@
 	        var blueFlag = this.classList.contains('blue');//check if the blue class is applied
 	        var pinkFlag = this.classList.contains('pink');//check if the blue class is applied
 
-			//If not already taken, set background back to pink
+			//If not already taken, remove class pink, apply class blue
 	        if (!takenFlag){
 	        	if(pinkFlag){
 	        		this.classList.remove('pink');//removes pink class if it is not currently in the div/box
 	        	}
-
-	        	if (!blueFlag){
+				if (!blueFlag){
 	        		this.classList.add('blue');//adds blue class if it currently exists
 	        	}
-	        	
-
 	        }
-
 	        //this cancels the typical behavior of the clicked element
 	        return false;
 		} ;//End event handler function definition
@@ -63,8 +59,6 @@
 			//*****Debugging console log*****
 	        //console.log('Inside eventHandlerMouseDown. Turn number: '+ turnNumber);
 	        
-
-
 	        var takenFlag = this.classList.contains('taken');//checks if there's already an x or o in this spot
 	        
 	        //only goes in here if the spot's not already taken
@@ -96,14 +90,10 @@
 		        	document.getElementById('player2').classList.add('notCurrentTurn');
 		        }
         	
-        		//Checks for a winner here, only if the turn is at least 5, because no winner can occur until at least move 5.
-	        	
+        		//Checks for a winner here, only if the turn is at least 4, because no winner can occur until at least move 5.
 	        	if (turnNumber>=4){
 					console.log('Time to start checking for a winner');
-					//****************************************************
-					//****************************************************
-					//********WRITE OUT REST OF GAME LOGIC HERE***********
-					//****************************************************
+
 					
 					if (turnNumber%2==0){
 						winner = findWinner(true, false);//findWinner(xturn, oturn)
@@ -129,20 +119,23 @@
 						}
 
 						//Get div to show a winner 
-						document.getElementById('winnerIdentity').innerHTML = '<h1>The winner is ' + winningPlayer + '!</h1>';
+						document.getElementById('winnerIdentityDiv').innerHTML = "<h1 id='winnerIdentity'>The winner is " + winningPlayer + '!</h1>';
 
 						//Clear out div showing whose turn it is
-						document.getElementById('playerTurn').innerHTML = '';
+						removePlayerTurn();
 
-						document.getElementById('playAgain').style.display='block';
+						//Show the sand castle for playing again
+						showPlayAgainButton();
 					}
 					
 				}
 				//Cat's game logic
 				if (turnNumber==8 && !winner){
-					document.getElementById('winnerIdentity').innerHTML="<h1>Cat's game. Better luck next time!</h1>";
+					document.getElementById('winnerIdentityDiv').innerHTML="<h1id='winnerIdentity'>Cat's game. Better luck next time!</h1>";
 					//Clear out div showing whose turn it is
-					document.getElementById('playerTurn').innerHTML = '';
+					removePlayerTurn();
+					//Show the sand castle for playing again
+					showPlayAgainButton();
 				}
 
 	        	turnNumber++;//increments which turn number it is
@@ -198,6 +191,7 @@
 			return win;
 		}
 
+
 		//Clears the x's and o's on the board at the end of the game. Called when the new game button is clicked.
 		function clearBoard(){
 			console.log(mySquares);
@@ -207,7 +201,9 @@
 			turnNumber = 0;
 			winner=false;
 		}
-		//Removes the taken class from all board pieces
+		
+
+		//Removes the taken class from all board pieces. Called when the new game button is clicked.
 		function removeTakenClass(){
 			for (var i = 0; i<numSquares; i++){
 				mySquares[i].classList.remove('taken');
@@ -218,14 +214,29 @@
 			}
 		}
 
-		//Insert the player turn divs back in
+		//Remove the player turn divs. Called when someone wins the game.
+		function removePlayerTurn(){
+			document.getElementById('playerTurn').innerHTML = '';
+		}
+		//Insert the player turn divs back in. Called when the new game button is clicked.
 		function reinsertPlayerTurn(){
 			document.getElementById('playerTurn').innerHTML = "<h4>Waiting for next move from:</h4><p class='currentTurn' id='player1'>Player 1</p><p class='notCurrentTurn' id='player2'>Player 2</p>";
 
 		}
-		//Remove the winner announcement at the start of a new game
+		//Remove the winner announcement at the start of a new game. Called when the new game button is clicked.
 		function removeWinnerAnnouncement(){
-			document.getElementById('winnerIdentity').innerHTML='';
+			document.getElementById('winnerIdentityDiv').innerHTML='';
+		}
+
+		//Hide the play again button at the start of a new game. Called when the new game button is clicked.
+		function removePlayAgainButton(){
+			// document.getElementById('playAgain').innerHTML = '';
+			document.getElementById('playAgainImage').style.display='none';
+		}
+		//Show the play again button at the end of a game. Called when the game ends, either when there's a cat's game or a winner
+		function showPlayAgainButton(){
+			// document.getElementById('playAgain').innerHTML ="<input id='playAgainImage' type='image' src='images/sandcastle.png' value='Play again'>";
+			document.getElementById('playAgainImage').style.display='block';
 		}
 
 		//**************************************
@@ -250,21 +261,28 @@
 
 		//Specify which HTML elements should get wired up to event handlers
 		for (var i = 0; i < numSquares;i++) {
-			mySquares[i].onmouseover = eventHandlerMouseOver; //Adds event listener for all squares for mouse over
-			mySquares[i].onmouseout = eventHandlerMouseOut; //Adds event listener for all squares for mouse out
-			mySquares[i].onmousedown = eventHandlerMouseDown; //Adds event listener for all squares for mouse down
+			mySquares[i].addEventListener('mouseover', eventHandlerMouseOver); //Adds event listener for all squares for mouse over
+			mySquares[i].addEventListener('mouseout', eventHandlerMouseOut); //Adds event listener for all squares for mouse out
+			mySquares[i].addEventListener('click', eventHandlerMouseDown); //Adds event listener for all squares for mouse down
 		}
 
-		var newGame = document.getElementById('playAgain');
+		var newGame = document.getElementById('playAgainImage');
 
-		//When the 'New Game' button is clicked, it'll clear out the board
+		//*****  START EVENT LISTENERS FOR WHEN 'NEW GAME' BUTTON IS CLICKED  *****//
+
+		//Clears the board of the game pieces
 		newGame.addEventListener('click',clearBoard); 
-		//When the 'New Game' button is clicked, it will remove the taken flag from all boards so they can be clicked again
+		//Removes the taken flag from all board pieces so they can be clicked again
 		newGame.addEventListener('click',removeTakenClass);
-		//When the 'New Game' button is clicked, it will add the player turn information back in
+		//Adds the player turn information back in
 		newGame.addEventListener('click', reinsertPlayerTurn);
-		//When the 'New Game' button is clicked, it will clear out the information about the winner
+		//Clears out the information about the winner
 		newGame.addEventListener('click', removeWinnerAnnouncement);
+		//Hides the play again button at the start of a new game
+		newGame.addEventListener('click', removePlayAgainButton);
+
+		//*****  END EVENT LISTENERS FOR WHEN 'NEW GAME' BUTTON IS CLICKED  *****//
+
 		//**************************************
 		//************END GAME SETUP************
 		//**************************************

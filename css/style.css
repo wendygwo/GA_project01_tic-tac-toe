@@ -14,7 +14,6 @@ header{
 	text-align: center; 
 	font-style: arial;
 	color: #342A14;
-	margin: 50px;
 	font-size: 200%;
 }
 
@@ -60,13 +59,14 @@ header{
 	/*background-color: lightpink;*/
 	background-image: url('../images/wood_grain3.jpg');
 	background-size: contain;
+
 }
 /*Applied on mouseout*/
 .blue{
 	/*background-color: blue;*/
-		background-image: url('../images/wood_grain3.jpg');
+	background-image: url('../images/wood_grain3.jpg');
 	background-size: contain;
-	/*opacity: 0.5;*/
+	opacity: 0.5;
 }
 /********************************************/
 /*Styling for margins of tic tac toe squares*/
@@ -108,14 +108,21 @@ header{
 
 /*Styling for when a board piece is taken*/
 div.taken{
+	opacity: 1;
 }
 
 /*Styling for div that shows announcement of winnerj*/
 #winnerIdentity{
-	background-color: magenta;
 	color: white;
-	width: 320px;
-	margin: 0 auto;
+	margin: 0px auto;
+	text-align: center;
+	z-index: 100;
+	position: relative;
+	top: 100px;
+	background-color: gray;
+}
+#winnerIdentityDiv{
+	height: 0px;
 }
 
 /*Styling for div that shows 'Play again button'*/
@@ -123,7 +130,8 @@ div.taken{
 	margin: 0 auto;
 }
 
-#playAgain{
+#playAgainImage{
 	margin: 0 auto;	/*display: block;*/
 	display: none;
+	width: 200px;
 }
