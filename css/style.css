@@ -1,22 +1,20 @@
 body {
-	/*background-color: #85FFF1;*/
 	background-image: url('../images/WaterSandBackground.jpg');
 	background-size: cover;
-
+	font-family: arial;
 }
-
 #container{
 	width:80%;
 	margin: 0 auto;
 }
-
 header{
 	text-align: center; 
-	font-style: arial;
 	color: #342A14;
 	font-size: 200%;
 }
-
+h1>img{
+	width: 100px;
+}
 /********************************************/
 /*  Styling for the text showing whose turn */
 /*  it is                                   */
@@ -26,7 +24,7 @@ header{
 }
 .currentTurn{
 	font-weight: bold;
-	color: green;
+	color: #342A14;
 }
 .notCurrentTurn{
 	color: lightgray;
@@ -48,24 +46,16 @@ header{
 .square{
 	height: 100px;
 	width: 100px;
-	
 	float: left;
 	margin: 5px;
 	border-radius: 5%;
 	border: 1px solid black;
-}
-/*Applied on mouseover*/
-.pink{
-	/*background-color: lightpink;*/
 	background-image: url('../images/wood_grain3.jpg');
 	background-size: contain;
-
 }
 /*Applied on mouseout*/
 .blue{
 	/*background-color: blue;*/
-	background-image: url('../images/wood_grain3.jpg');
-	background-size: contain;
 	opacity: 0.5;
 }
 /********************************************/
@@ -88,30 +78,14 @@ header{
 /*Styling for x or o class. Class depends on*/
 /*which player clicked the tic tac to square*/
 /********************************************/
-
-/*Delete later. Originally used when x's and o's were put in*/
 .gameBoardSquare{
 	width: 100%;
 }
-
-.x{
-	/*color:red;
-	font-size: 300%;
-	text-align: center;*/
-}
-
-.o{
-/*	color:blue;
-	font-size: 300%;
-	text-align: center;*/
-}
-
 /*Styling for when a board piece is taken*/
 div.taken{
 	opacity: 1;
 }
-
-/*Styling for div that shows announcement of winnerj*/
+/*Styling for div that shows announcement of winner*/
 #winnerIdentity{
 	color: white;
 	margin: 0px auto;
@@ -125,11 +99,11 @@ div.taken{
 	height: 0px;
 }
 
-/*Styling for div that shows 'Play again button'*/
+/*Styling for div that contains 'Play again button'*/
 #playerTurn {
 	margin: 0 auto;
 }
-
+/*Styling for image that shows play again button */
 #playAgainImage{
 	margin: 0 auto;	/*display: block;*/
 	display: none;
