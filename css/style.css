@@ -1,7 +1,9 @@
 body {
-	background-color: white;
-}
+	/*background-color: #85FFF1;*/
+	background-image: url('../images/WaterSandBackground.jpg');
+	background-size: cover;
 
+}
 
 #container{
 	width:80%;
@@ -10,6 +12,10 @@ body {
 
 header{
 	text-align: center; 
+	font-style: arial;
+	color: #342A14;
+	margin: 50px;
+	font-size: 200%;
 }
 
 /********************************************/
@@ -21,7 +27,7 @@ header{
 }
 .currentTurn{
 	font-weight: bold;
-	color: orange;
+	color: green;
 }
 .notCurrentTurn{
 	color: lightgray;
@@ -31,14 +37,13 @@ header{
 /*  squares                                 */
 /********************************************/
 #ticTacToeBoard{
-	height: 320px;
-	width: 320px;
-	background-color: black;
+	height: 350px;
+	width: 350px;
 	position:relative;
 	margin: 0 auto;
 }
 #playerTurn{
-	width: 320px;
+	width: 350px;
 	margin: 0 auto;
 }
 .square{
@@ -47,12 +52,21 @@ header{
 	
 	float: left;
 	margin: 5px;
+	border-radius: 5%;
+	border: 1px solid black;
 }
+/*Applied on mouseover*/
 .pink{
-	background-color: lightpink;
+	/*background-color: lightpink;*/
+	background-image: url('../images/wood_grain3.jpg');
+	background-size: contain;
 }
+/*Applied on mouseout*/
 .blue{
-	background-color: blue;
+	/*background-color: blue;*/
+		background-image: url('../images/wood_grain3.jpg');
+	background-size: contain;
+	/*opacity: 0.5;*/
 }
 /********************************************/
 /*Styling for margins of tic tac toe squares*/
@@ -74,25 +88,26 @@ header{
 /*Styling for x or o class. Class depends on*/
 /*which player clicked the tic tac to square*/
 /********************************************/
-div.gameBoardSquare{
-	padding-top: 20px;
+
+/*Delete later. Originally used when x's and o's were put in*/
+.gameBoardSquare{
+	width: 100%;
 }
 
 .x{
-	color:red;
+	/*color:red;
 	font-size: 300%;
-	text-align: center;
+	text-align: center;*/
 }
 
 .o{
-	color:blue;
+/*	color:blue;
 	font-size: 300%;
-	text-align: center;
+	text-align: center;*/
 }
 
 /*Styling for when a board piece is taken*/
 div.taken{
-	background-color: gray;
 }
 
 /*Styling for div that shows announcement of winnerj*/
@@ -101,4 +116,14 @@ div.taken{
 	color: white;
 	width: 320px;
 	margin: 0 auto;
+}
+
+/*Styling for div that shows 'Play again button'*/
+#playerTurn {
+	margin: 0 auto;
+}
+
+#playAgain{
+	margin: 0 auto;	/*display: block;*/
+	display: none;
 }
