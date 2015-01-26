@@ -91,30 +91,35 @@
 						for (var z=0; z<makeGray.length ; z++){
 							makeGray[z].classList.add('taken');
 						}
-						
+						if (winningPlayer=='Starfish'){
+							player1WinCount++;
+						}else{
+							player2WinCount++;
+						}
+
 						//Get div to show a winner 
 						document.getElementById('winnerIdentityDiv').innerHTML = "<h1 id='winnerIdentity'>" + winningPlayer + ' wins!</h1>';
-
 						//Clear out div showing whose turn it is
 						removePlayerTurn();
-
 						//Show the play again button
 						showPlayAgainButton();
+						//Increment total number of games
+						totalNumberGamesCount++;
 					}
-					
 					//Cat's game logic. Only goes in here on the 9th turn (counting starts at 0) and if there's no winner
 					if (turnNumber==8 && !winner){
-						//Show cat's game message
+						//Number of cat's games
+						catsGameCount++;
+						//Increment total number of games
+						totalNumberGamesCount++;
+						///Show cat's game message
 						document.getElementById('winnerIdentityDiv').innerHTML="<h1 id='winnerIdentity'>Cat's game. Better luck next time!</h1>";
 						//Clear out div showing whose turn it is
 						removePlayerTurn();
 						//Show the sand castle for playing again
 						showPlayAgainButton();
 					}
-
 				}
-
-
 	        	turnNumber++;//increments which turn number it is
 
         	}
@@ -128,6 +133,10 @@
 	        	document.getElementById(previousPlayer).classList.remove('notCurrentTurn');
 	        	document.getElementById(currentPlayer).classList.remove('currentTurn');
 	        	document.getElementById(currentPlayer).classList.add('notCurrentTurn');
+
+	        	//Hides driftwood for current player's turn. Show's driftwood for next player's turn
+	        	document.getElementById(previousPlayer).firstChild.style.visibility = 'visible';
+	        	document.getElementById(currentPlayer).firstChild.style.visibility = 'hidden';
         }
 
 		function findWinner(whoseTurn){
@@ -186,7 +195,7 @@
 		}
 		//Insert the player turn divs back in. Called when the new game button is clicked.
 		function reinsertPlayerTurn(){
-			document.getElementById('playerTurn').innerHTML = "<h4>Waiting for next move from:</h4><p class='currentTurn' id='player1'>Player 1</p><p class='notCurrentTurn' id='player2'>Player 2</p>";
+			document.getElementById('playerTurn').innerHTML = "<h4>Waiting for next move from:</h4><p class='currentTurn' id='player1'><img src='images/driftwood2.png' class='driftwood' style='visibility:visible'/>Player 1 - won " +player1WinCount+ " of " + totalNumberGamesCount + " games</p><p class='notCurrentTurn' id='player2'><img src='images/driftwood2.png' class='driftwood' style='visibility:hidden'/>Player 2 - won " +player2WinCount+ " of " + totalNumberGamesCount + " games</p><p><img src='images/driftwood2.png' class='driftwood' style='visibility:hidden'/>Cat's games: " + catsGameCount+ " of " + totalNumberGamesCount + " games</p>";
 		}
 		//Remove the winner announcement at the start of a new game. Called when the new game button is clicked.
 		function removeWinnerAnnouncement(){
@@ -201,6 +210,12 @@
 		function showPlayAgainButton(){
 			// document.getElementById('playAgain').innerHTML ="<input id='playAgainImage' type='image' src='images/sandcastle.png' value='Play again'>";
 			document.getElementById('playAgainImage').style.display='block';
+		}
+		function resetPlayerVisibility(){
+			// console.log('In resetPlayerVisibility. Player1 first child is: ')
+			// console.log(document.getElementById('player1').firstChild);
+			document.getElementById('player1').firstChild.style.visibility = 'visible';
+        	document.getElementById('player2').firstChild.style.visibility = 'hidden';
 		}
 
 		//********************************************************************************
@@ -221,6 +236,11 @@
 		//Flag for if there's a winner
 		var winner=false;
 
+		var player1WinCount = 0;
+		var player2WinCount = 0;
+		var catsGameCount = 0;
+		var totalNumberGamesCount = 0;
+
 		//Specify which HTML elements should get wired up to event handlers
 		for (var i = 0; i < numSquares;i++) {
 			mySquares[i].addEventListener('mouseover', eventHandlerMouseOver); //Adds event listener for all squares for mouse over
@@ -238,6 +258,8 @@
 		newGame.addEventListener('click',removeTakenClass);
 		//Adds the player turn information back in
 		newGame.addEventListener('click', reinsertPlayerTurn);
+		//Reset visibility of the driftwood marker for whose turn to play it is
+		newGame.addEventListener('click', resetPlayerVisibility);
 		//Clears out the announcement of the winner
 		newGame.addEventListener('click', removeWinnerAnnouncement);
 		//Hides the play again button at the start of a new game
