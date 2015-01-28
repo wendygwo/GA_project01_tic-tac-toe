@@ -3,7 +3,9 @@ body{
 	background-size: cover;
 	font-family: arial;
 }
-
+header{
+	text-align: center;
+}
 #container{
 	width: 320px;
 	height: 320px;
@@ -18,15 +20,21 @@ body{
 	background-size: contain;
 	float: left; /*Don't delete this! Keeps the squares from moving around*/
 
-	border: 2px solid blue;
+	border: 1px solid black;
 	color: white;
+	border-radius: 20%;
 
 }
+.gamePiece{
+	height:100px;
+	width:100px;
+	border:0px;
+}
 .xSelected{
-	background-image: url('../images/starfish1.png');
+/*	background-image: url('../images/starfish1.png');
 	background-size: contain;
-}
+*/}
 .oSelected{
-	background-image: url('../images/seashell1_edited.png');
+/*	background-image: url('../images/seashell1_edited.png');
 	background-size: contain;
-}
+*/}
