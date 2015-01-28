@@ -38,3 +38,31 @@ header{
 /*	background-image: url('../images/seashell1_edited.png');
 	background-size: contain;
 */}
+#winnerIdentity{
+	color: white;
+	margin: 0px auto;
+	text-align: center;
+	z-index: 100;
+	position: relative;
+	top: 100px;
+	background-color: #E9A656;
+	width: 400px;
+}
+#winnerIdentityDiv{
+	height: 0px;
+}
+
+.currentTurn{
+	font-weight: bold;
+	color: #342A14;
+/*	background-image: url('../images/driftwood2.png');
+	background-size: 80px 20px;
+	background-repeat: no-repeat;*/
+}
+.notCurrentTurn{
+	color: lightgray;
+}
+.driftwood{
+	width: 80px;
+	height: 20px;
+}

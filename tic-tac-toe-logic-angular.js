@@ -22,7 +22,9 @@ ticTacToeGame.controller('ticTacToeGameCtrl', function($scope){
 
 	$scope.xMoves=[];
 	$scope.oMoves=[];
-	$scope.winningPlayer = '';
+	$scope.winningPlayer = '';//Set to name of winning player
+	$scope.someoneWon = false; //set to true when someone wins
+	$scope.catsGame=false;//set to true if it's a cat's game
 
 	$scope.winningCombinations = [['1','2','3'],['4','5','6'],['7','8','9'],['1','4','7'],['2','5','8'],['3','6','9'],['1','5','9'],['3','5','7']];
 
@@ -49,28 +51,42 @@ ticTacToeGame.controller('ticTacToeGameCtrl', function($scope){
 				if($scope.turnNumber%2==0){
 					console.log('went into check win conditions for x player');
 					// console.log($scope.winningCombinations.length);
+
+					//Checks win conditions against current player's moves up until now
 					for (var i = 0; i<$scope.winningCombinations.length;i++){
 						if(($scope.xMoves.indexOf($scope.winningCombinations[i][0])!=-1)&&($scope.xMoves.indexOf($scope.winningCombinations[i][1])!=-1)&&($scope.xMoves.indexOf($scope.winningCombinations[i][2])!=-1)){
 							console.log('x wins');
+							$scope.someoneWon=true;
+							$scope.winningPlayer='starfish';
 						}
 
 					}
 				} else{
 					console.log('went into check win conditions for x player');
 					// console.log($scope.winningCombinations.length);
+
+					//Checks win conditions against current player's moves up until now
 					for (var i = 0; i<$scope.winningCombinations.length;i++){
 						if(($scope.oMoves.indexOf($scope.winningCombinations[i][0])!=-1)&&($scope.oMoves.indexOf($scope.winningCombinations[i][1])!=-1)&&($scope.oMoves.indexOf($scope.winningCombinations[i][2])!=-1)){
 							console.log('o wins');
+							$scope.someoneWon=true;
+							$scope.winningPlayer='seashell';
 						}
 
-					}
+					}//end cycling through win conditions
+				}//end checking if someone won
 
+				//Cat's game logic. Only goes in here on the 9th turn (counting starts at 0) and if there's no winner
+				if($scope.turnNumber==8 && !$scope.someoneWon){
+					$scope.catsGame=true;
 				}
+
 			}
 			$scope.turnNumber++; //increment turn number
+				
 
-		}
-	};
+		} //end if this board space not already taken
+	};//end $scope.makeMove=function(idx)
 
 
 }); //End makeMove function
