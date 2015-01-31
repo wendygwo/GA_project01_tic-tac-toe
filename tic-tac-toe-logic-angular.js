@@ -1,8 +1,14 @@
 
 
-var ticTacToeGame=angular.module('ticTacToeGame', []);
+var ticTacToeGame=angular.module('ticTacToeGame', ['firebase']);
 
-ticTacToeGame.controller('ticTacToeGameCtrl', function($scope){
+ticTacToeGame.controller('ticTacToeGameCtrl', function($scope, $firebase){
+	//Connect to firebase
+	var ref = new Firebase('https://wendytictactoe.firebaseio.com/')
+	// create an AngularFire reference to the data
+    var sync = $firebase(ref);
+    // // download the data into a local object
+    $scope.board = sync.$asArray();
 
 	//initialize board to empty strings
 	$scope.board=[{val:'',playerPieceImage:''},
@@ -15,6 +21,16 @@ ticTacToeGame.controller('ticTacToeGameCtrl', function($scope){
 					{val:'',playerPieceImage:''},
 					{val:'',playerPieceImage:''}];
 
+	// $scope.board.$add([{val:'',playerPieceImage:''},
+	// 				{val:'',playerPieceImage:''},
+	// 				{val:'',playerPieceImage:''},
+	// 				{val:'',playerPieceImage:''},
+	// 				{val:'',playerPieceImage:''},
+	// 				{val:'',playerPieceImage:''},
+	// 				{val:'',playerPieceImage:''},
+	// 				{val:'',playerPieceImage:''},
+	// 				{val:'',playerPieceImage:''}]);
+	//console.log($scope.board["-JgniLPAqnegCBpHT4TO"])
 	$scope.turnNumber = 0;
 
 	//holds image location for each piece. location of image set after a piece has been clicked on
@@ -30,6 +46,7 @@ ticTacToeGame.controller('ticTacToeGameCtrl', function($scope){
 
 	//Function to put X or O into the squares
 	$scope.makeMove=function(idx){
+		// alert(idx);
 		// console.log('yay');
 		if (($scope.board[idx].val!='x') && ($scope.board[idx].val!='o')){ //This lines checks to see if the board piece has already been taken
 			// console.log('yay2');
@@ -88,5 +105,37 @@ ticTacToeGame.controller('ticTacToeGameCtrl', function($scope){
 		} //end if this board space not already taken
 	};//end $scope.makeMove=function(idx)
 
+
+	// $scope.newGame=function(){
+	// 	console.log('went into new game')
+	// 	// //initialize board to empty strings
+	// 	// $scope.board=[{val:'',playerPieceImage:''},
+	// 	// 				{val:'',playerPieceImage:''},
+	// 	// 				{val:'',playerPieceImage:''},
+	// 	// 				{val:'',playerPieceImage:''},
+	// 	// 				{val:'',playerPieceImage:''},
+	// 	// 				{val:'',playerPieceImage:''},
+	// 	// 				{val:'',playerPieceImage:''},
+	// 	// 				{val:'',playerPieceImage:''},
+	// 	// 				{val:'',playerPieceImage:''}];
+	// 	console.log('scope.board.length =' + $scope.board.length)
+	// 	for (var q = 0; q<$scope.board.length; q++){
+	// 		$scope.board[q].val='';
+	// 		$scope.board[q].playerPieceImage='';
+	// 		console.log($scope.board[q].val);
+	// 		console.log($scope.board[q].playerPieceImage);
+	// 	}
+
+	// 	$scope.turnNumber = 0;
+
+	// 	//holds image location for each piece. location of image set after a piece has been clicked on
+	// 	$scope.imgSource='';
+
+	// 	$scope.xMoves=[];
+	// 	$scope.oMoves=[];
+	// 	$scope.winningPlayer = '';//Set to name of winning player
+	// 	$scope.someoneWon = false; //set to true when someone wins
+	// 	$scope.catsGame=false;//set to true if it's a cat's game
+	// };
 
 }); //End makeMove function

@@ -62,6 +62,12 @@ header{
 .notCurrentTurn{
 	color: lightgray;
 }
+
+/*Styling for image that shows play again button */
+#playAgainImage{
+	margin: 0 auto;
+	width: 200px;
+}
 .driftwood{
 	width: 80px;
 	height: 20px;

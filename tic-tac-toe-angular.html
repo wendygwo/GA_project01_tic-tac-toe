@@ -5,6 +5,13 @@
 	<link rel="stylesheet" type="text/css" href="css/style-angular.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular.min.js"></script>
+
+	<!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/0.9.1/angularfire.min.js"></script>
+
+
 	<script src="tic-tac-toe-logic-angular.js"></script>
 </head>
 <body ng-app="ticTacToeGame" ng-controller="ticTacToeGameCtrl">
@@ -40,6 +47,10 @@
 			<p class='currentTurn' id='player1'><img src='images/driftwood2.png' class='driftwood' ng-show:'true'/>Player 1</p>
 			<p class='notCurrentTurn' id='player2'><img src='images/driftwood2.png' class='driftwood' ng-show:'true'/>Player 2</p>
 		</div> -->
+
+		<!-- Button to play again. Will clear out x's and o's and divs -->
+		<!-- **** ADD IN PLAY AGAIN BUTTON AFTER GETTING ANGULAR WORKING**** -->
+<!-- 		<div id='playAgain'><input id='playAgainImage' class='animated bounce' type='image' src='images/sandcastle.png' value='Play again' ng-show='someoneWon' ng-click='newGame()'></div> -->
 
 	</div>
 
